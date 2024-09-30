@@ -34,18 +34,23 @@ This exercise accompanies the lessons in Environmental Data Analytics on Data Wr
 library(tidyverse)
 library(lubridate)
 library(here)
+library(tidyr)
 
 #1b 
 getwd()
 
 #1c 
-EPAO3_2018<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_O3_NC2018_raw.csv", stringsAsFactors = TRUE)
+EPAO3_2018<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_O3_NC2018_raw.csv", 
+                     stringsAsFactors = TRUE)
 
-EPAO3_2019<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_O3_NC2019_raw.csv", stringsAsFactors = TRUE)
+EPAO3_2019<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_O3_NC2019_raw.csv", 
+                     stringsAsFactors = TRUE)
 
-EPAPM25_2018<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2018_raw.csv", stringsAsFactors = TRUE)
+EPAPM25_2018<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2018_raw.csv", 
+                       stringsAsFactors = TRUE)
 
-EPAPM25_2019<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2019_raw.csv", stringsAsFactors = TRUE)
+EPAPM25_2019<-read.csv("~/EDE_Fall2024/Data/Raw/EPAair_PM25_NC2019_raw.csv", 
+                       stringsAsFactors = TRUE)
 
 
 #2 
@@ -56,7 +61,8 @@ dim(EPAPM25_2019)
 
 ```
 
->All four datasets should have the same number of columns but unique record counts (rows). Do your datasets follow this pattern?
+>All four datasets should have the same number of columns but unique record 
+counts (rows). Do your datasets follow this pattern?
 Yes they follow the patteren. 
 
 ## Wrangle individual datasets to create processed files.
@@ -79,20 +85,38 @@ class(EPAO3_2018$Date)
 
 
 #4
-EPAO3_2018.processed <- EPAO3_2018[, c("Date", "DAILY_AQI_VALUE", "Site.Name", "AQS_PARAMETER_DESC", "COUNTY", "SITE_LATITUDE", "SITE_LONGITUDE")]
-EPAO3_2019.processed <- EPAO3_2019[, c("Date", "DAILY_AQI_VALUE", "Site.Name", "AQS_PARAMETER_DESC", "COUNTY", "SITE_LATITUDE", "SITE_LONGITUDE")]
-EPAPM25_2018.processed <- EPAPM25_2018[, c("Date", "DAILY_AQI_VALUE", "Site.Name", "AQS_PARAMETER_DESC", "COUNTY", "SITE_LATITUDE", "SITE_LONGITUDE")]
-EPAPM25_2019.processed <- EPAPM25_2019[, c("Date", "DAILY_AQI_VALUE", "Site.Name", "AQS_PARAMETER_DESC", "COUNTY", "SITE_LATITUDE", "SITE_LONGITUDE")]
+EPAO3_2018.processed <- EPAO3_2018[, c("Date", "DAILY_AQI_VALUE", 
+                                       "Site.Name", "AQS_PARAMETER_DESC", 
+                                       "COUNTY", "SITE_LATITUDE", 
+                                       "SITE_LONGITUDE")]
+EPAO3_2019.processed <- EPAO3_2019[, c("Date", "DAILY_AQI_VALUE",
+                                       "Site.Name", "AQS_PARAMETER_DESC",
+                                       "COUNTY", "SITE_LATITUDE",
+                                       "SITE_LONGITUDE")]
+EPAPM25_2018.processed <- EPAPM25_2018[, c("Date", "DAILY_AQI_VALUE",
+                                           "Site.Name", "AQS_PARAMETER_DESC",
+                                           "COUNTY", "SITE_LATITUDE",
+                                           "SITE_LONGITUDE")]
+EPAPM25_2019.processed <- EPAPM25_2019[, c("Date", "DAILY_AQI_VALUE",
+                                           "Site.Name", "AQS_PARAMETER_DESC",
+                                           "COUNTY", "SITE_LATITUDE",
+                                           "SITE_LONGITUDE")]
 
 
 #5
 EPAPM25_2018.processed["AQS_PARAMETER_DESC"] <- "PM2.5"
 EPAPM25_2019.processed["AQS_PARAMETER_DESC"] <- "PM2.5"
 #6
-write.csv(EPAO3_2018.processed, "~/EDE_Fall2024/Data/Processed/EPAair_O3_NC2018_processed.csv", row.names=FALSE)
-write.csv(EPAO3_2019.processed, "~/EDE_Fall2024/Data/Processed/EPAair_O3_NC2019_processed.csv", row.names=FALSE)
-write.csv(EPAPM25_2018.processed, "~/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2018_processed.csv", row.names=FALSE)
-write.csv(EPAPM25_2019.processed, "~/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2019_processed.csv", row.names=FALSE)
+write.csv(EPAO3_2018.processed,
+          "~/EDE_Fall2024/Data/Processed/EPAair_O3_NC2018_processed.csv",
+          row.names=FALSE)
+write.csv(EPAO3_2019.processed,
+          "~/EDE_Fall2024/Data/Processed/EPAair_O3_NC2019_processed.csv",
+          row.names=FALSE)
+write.csv(EPAPM25_2018.processed, "~/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2018_processed.csv",
+          row.names=FALSE)
+write.csv(EPAPM25_2019.processed, "~/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2019_processed.csv",
+          row.names=FALSE)
 
 
 ```
@@ -127,29 +151,35 @@ write.csv(EPAPM25_2019.processed, "~/EDE_Fall2024/Data/Processed/EPAair_PM25_NC2
 
 ```{r questions 7 thru 11}
 #7 
-EPA.Data <- rbind(EPAO3_2018.processed, EPAO3_2019.processed, EPAPM25_2018.processed, EPAPM25_2019.processed)
+EPA.Data <- rbind(EPAO3_2018.processed, EPAO3_2019.processed,
+                  EPAPM25_2018.processed, EPAPM25_2019.processed)
 
 #8 
 EPA.Data.Pipe <- 
   EPA.Data %>% 
-  filter(EPA.Data$Site.Name %in% c("Linville Falls", "Durham Armory", "Leggett", "Hattie Avenue",
+  filter(EPA.Data$Site.Name %in% c("Linville Falls", "Durham Armory",
+                                   "Leggett", "Hattie Avenue",
   "Clemmons Middle", "Mendenhall School", "Frying Pan Mountain", 
   "West Johnston Co.", "Garinger High School", "Castle Hayne", 
   "Pitt Agri. Center", "Bryson City", "Millbrook School")) %>%
   group_by(Date, Site.Name, AQS_PARAMETER_DESC, COUNTY) %>%
-  summarise_at(vars(DAILY_AQI_VALUE, SITE_LATITUDE, SITE_LONGITUDE), list(name = mean)) %>%
+  summarise_at(vars(DAILY_AQI_VALUE, SITE_LATITUDE, SITE_LONGITUDE),
+               list(name = mean)) %>%
   mutate(Year = year(ymd(Date)),
          Month = month(ymd(Date)))
  
 
 #9
-
+EPA.Data.Pipe <- pivot_wider(EPA.Data.Pipe, 
+names_from = AQS_PARAMETER_DESC,
+values_from = DAILY_AQI_VALUE_name)
 
 #10
 dim(EPA.Data.Pipe)
 
 #11
-write.csv(EPAPM25_2019.processed, "~/EDE_Fall2024/Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv", row.names=FALSE)
+write.csv(EPAPM25_2019.processed, "~/EDE_Fall2024/Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv",
+          row.names=FALSE)
 
 ```
 
@@ -164,14 +194,28 @@ write.csv(EPAPM25_2019.processed, "~/EDE_Fall2024/Data/Processed/EPAair_O3_PM25_
 
 #12
 
+summary <- (EPA.Data.Pipe %>% 
+  group_by(Site.Name, Month, Year) %>%
+  summarise_at(vars(Ozone, PM2.5), list(name = mean))%>%
+    drop_na(Ozone_name))
+
 
 #13
 
-
+dim(summary)
 
 ```
 
 14. Why did we use the function `drop_na` rather than `na.omit`? Hint: replace `drop_na` with `na.omit` in part 12 and observe what happens with the dimensions of the summary date frame.
+```{r}
+#14
+dim(summary1 <- (EPA.Data.Pipe %>% 
+  group_by(Site.Name, Month, Year) %>%
+  summarise_at(vars(Ozone, PM2.5), list(name = mean))%>%
+    na.omit(Ozone_name)))
 
-> Answer: 
+```
+
+> Answer: When using na.omit we lose rows. It takes the N/A on both Ozone
+and PM2.5.
 
