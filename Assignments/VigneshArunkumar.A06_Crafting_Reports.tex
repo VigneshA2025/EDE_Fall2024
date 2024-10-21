@@ -123,6 +123,10 @@
 \begin{document}
 \maketitle
 
+{
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
 \subsection{Objectives:}\label{objectives}
 
 \begin{enumerate}
@@ -187,31 +191,11 @@ metadata of the EPA Air Quality data.
 
 Table: EPA Air Quality
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(knitr)}
-\NormalTok{EPAair }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Item=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Filename\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Date\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Source\textquotesingle{}}\NormalTok{),}
-                 \AttributeTok{Value=}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}EPAair\_O3\_PM25\_NC1819\_Processed.csv\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}2018{-}2019\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}EPA Air Quality System (AQS)\textquotesingle{}}\NormalTok{))}
-\FunctionTok{kable}\NormalTok{(EPAair, }\AttributeTok{align =} \FunctionTok{c}\NormalTok{(}\StringTok{"r"}\NormalTok{, }\StringTok{"l"}\NormalTok{), }\AttributeTok{caption =} \StringTok{"Table: EPA Air Quality"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{longtable}[]{@{}rl@{}}
-\caption{Table: EPA Air Quality}\tabularnewline
-\toprule\noalign{}
-Item & Value \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Item & Value \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Filename & EPAair\_O3\_PM25\_NC1819\_Processed.csv \\
-Date & 2018-2019 \\
-Source & EPA Air Quality System (AQS) \\
-\end{longtable}
+library(knitr) EPAair \textless- data.frame(Item=c(`Filename', `Date',
+`Source'),
+Value=c(`EPAair\_O3\_PM25\_NC1819\_Processed.csv',`2018-2019', `EPA Air
+Quality System (AQS)')) kable(EPAair, align = c(``r'', ``l''), caption =
+``Table: EPA Air Quality'')
 
 \subsection{Task 2 - Import packages and data, suppressing
 messages}\label{task-2---import-packages-and-data-suppressing-messages}
@@ -227,7 +211,7 @@ should be displayed.
 \FunctionTok{library}\NormalTok{(lubridate)}
 \FunctionTok{library}\NormalTok{(here)}
 \FunctionTok{library}\NormalTok{(knitr)}
-\FunctionTok{library}\NormalTok{(tinytex)}
+
 
 
 \CommentTok{\#Import EPA data (from the processed\_KEY folder) \& fix dates}
@@ -277,75 +261,57 @@ displayed.
 \end{itemize}
 \end{quote}
 
-\begin{table}
-\begin{table}
+\begin{longtable}[]{@{}lr@{}}
+\caption{Mean Particulates (2.5mm)}\tabularnewline
+\toprule\noalign{}
+County & \(\mu g/m^3\) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+County & \(\mu g/m^3\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Haywood & 13.98 \\
+New Hanover & 15.61 \\
+Avery & 18.28 \\
+Edgecombe & 26.07 \\
+Pitt & 27.37 \\
+Guilford & 29.14 \\
+Swain & 30.63 \\
+Johnston & 33.03 \\
+Durham & 33.54 \\
+Mecklenburg & 33.63 \\
+Forsyth & 35.09 \\
+Wake & 37.45 \\
+\end{longtable}
 
-\caption{\label{tab:data.summary}Mean Particulates (2.5mm)}
-\centering
-\begin{tabular}[t]{l|r}
-\hline
-County & "\$\textbackslash{}mu g/m\textasciicircum{}3\$"\\
-\hline
-Haywood & 13.98\\
-\hline
-New Hanover & 15.61\\
-\hline
-Avery & 18.28\\
-\hline
-Edgecombe & 26.07\\
-\hline
-Pitt & 27.37\\
-\hline
-Guilford & 29.14\\
-\hline
-Swain & 30.63\\
-\hline
-Johnston & 33.03\\
-\hline
-Durham & 33.54\\
-\hline
-Mecklenburg & 33.63\\
-\hline
-Forsyth & 35.09\\
-\hline
-Wake & 37.45\\
-\hline
-\end{tabular}
-\end{table}\begin{table}
-
-\caption{\label{tab:data.summary}Mean Ozone}
-\centering
-\begin{tabular}[t]{l|r}
-\hline
-County & "\$\textbackslash{}mu g/m\textasciicircum{}3\$"\\
-\hline
-Swain & 35.58\\
-\hline
-Avery & 38.39\\
-\hline
-Wake & 38.61\\
-\hline
-New Hanover & 39.12\\
-\hline
-Edgecombe & 39.22\\
-\hline
-Johnston & 40.34\\
-\hline
-Mecklenburg & 40.46\\
-\hline
-Durham & 40.70\\
-\hline
-Pitt & 41.64\\
-\hline
-Forsyth & 44.02\\
-\hline
-Haywood & 44.75\\
-\hline
-Guilford & 45.87\\
-\hline
-\end{tabular}
-\end{table}
-\end{table}
+\begin{longtable}[]{@{}lr@{}}
+\caption{Mean Ozone}\tabularnewline
+\toprule\noalign{}
+County & \(\mu g/m^3\) \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+County & \(\mu g/m^3\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Swain & 35.58 \\
+Avery & 38.39 \\
+Wake & 38.61 \\
+New Hanover & 39.12 \\
+Edgecombe & 39.22 \\
+Johnston & 40.34 \\
+Mecklenburg & 40.46 \\
+Durham & 40.70 \\
+Pitt & 41.64 \\
+Forsyth & 44.02 \\
+Haywood & 44.75 \\
+Guilford & 45.87 \\
+\end{longtable}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -361,29 +327,21 @@ set the figure heights so both plots fit on the same page with minimal
 space remaining. Lastly, add a \texttt{fig.cap} chunk option to add a
 caption (title) to your plot that will display underneath the figure.
 
-\newpage
-
-\#```\{r echo=FALSE\} ozone2018 \textless-
-epa\_data{[}epa\_data\$Year==2018,{]}
-
-Plot1\textless- ggplot(ozone2018, aes(x = as.factor(Month)))+
-geom\_boxplot(aes(y=Ozone))+ labs(caption = ``Figure 1: Monthly Ozone
-levels in 2018'', x = ``Month'',y = ``Concentrations'', title =
-``Monthly Ozone Concentrations (2018)'')
-
-Plot1
+\subsection{\texorpdfstring{\newpage}{}}\label{section}
 
 \begin{verbatim}
-
-#```{r echo=FALSE}
-ozone2019 <- epa_data[epa_data$Year==2019,]
-
-Plot2<- ggplot(ozone2019, aes(x = as.factor(Month)))+
-  geom_boxplot(aes(y=Ozone))+
-  labs(caption = "Figure 2: Monthly Ozone levels in 2019", x = "Month",y = "Concentrations", title = "Monthly Ozone Concentrations (2019)")
-
-Plot2
+## Warning: Removed 1199 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).
 \end{verbatim}
+
+\includegraphics{VigneshArunkumar.A06_Crafting_Reports_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{verbatim}
+## Warning: Removed 947 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).
+\end{verbatim}
+
+\includegraphics{VigneshArunkumar.A06_Crafting_Reports_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -397,5 +355,7 @@ your Rmd file used to create this knit document to GitHub. In the
 section below, add a link to your GitHub repository.
 
 \subsection{Git Repository}\label{git-repository}
+
+\url{https://github.com/VigneshA2025/EDE_Fall2024}
 
 \end{document}

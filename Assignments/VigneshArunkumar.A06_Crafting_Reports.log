@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.20)  20 OCT 2024 11:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.21)  21 OCT 2024 14:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -386,8 +386,7 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count311
 \l__pdf_internal_box=\box63
-)
-No file VigneshArunkumar.A06_Crafting_Reports.aux.
+) (./VigneshArunkumar.A06_Crafting_Reports.aux)
 \openout1 = `VigneshArunkumar.A06_Crafting_Reports.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
@@ -478,49 +477,27 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 125.
 (/home/guest/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 134.
-(/home/guest/.TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 176.
-(/home/guest/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Overfull \hbox (98.77272pt too wide) in paragraph at lines 180--184
-[]\T1/lmr/m/n/10 The sec-ond col-umn should have the header \T1/lmtt/m/n/10 Value \T1/lmr/m/n/10 and in-clude the meta-data val-ues: \T1/lmtt/m/n/10 EPAair_O3_PM25_NC1819_Processed.csv\T1/lmr/m/n/10 ,
- []
-
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 192.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 193.
-(/home/guest/.TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
-File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-
-[1
-
-{/home/guest/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/home/guest/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/guest/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 1 on input line 214.
-
-
-! LaTeX Error: Not in outer par mode.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.282 
-       
+) (./VigneshArunkumar.A06_Crafting_Reports.toc
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 1.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 1.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 1.
+Runaway argument?
+{
+! Paragraph ended before \contentsline was complete.
+<to be read again> 
+                   \par 
+l.7 \contentsline {subsection}{\par
+                                    \vfil \penalty -\@M }{4}{section*.8}% 
 Here is how much of TeX's memory you used:
- 11983 strings out of 475539
- 183361 string characters out of 5777438
- 588187 words of memory out of 5000000
- 34430 multiletter control sequences out of 15000+600000
- 587715 words of font info for 63 fonts, out of 8000000 for 9000
+ 11865 strings out of 475539
+ 181144 string characters out of 5777438
+ 574630 words of memory out of 5000000
+ 34331 multiletter control sequences out of 15000+600000
+ 598124 words of font info for 73 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,6n,93p,465b,543s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,6n,93p,735b,385s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 !  ==> Fatal error occurred, no output PDF file produced!
