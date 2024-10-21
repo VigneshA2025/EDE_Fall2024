@@ -32,17 +32,15 @@ Using markdown, create a 2-column table beneath the `Table: EPA Air Quality` lin
 
 - The first column should be aligned to the right and the second to the left.
 
-Table: EPA Air Quality
+
+                               Table 1: EPA Air Quality
 
 
-
-library(knitr)
-EPAair <- data.frame(Item=c('Filename', 'Date', 'Source'),
-Value=c('EPAair_O3_PM25_NC1819_Processed.csv','2018-2019', 'EPA Air Quality System (AQS)'))
-kable(EPAair, align = c("r", "l"), caption = "Table: EPA Air Quality")
-
-
-
+| Item Name | Value |
+|---:|:---|
+|Filename|EPAair_O3_PM25_NC1819_Processed.csv|
+|Date|2018-2019|
+|Source|EPA Air Quality System (AQS)|
 
 
 ## Task 2 - Import packages and data, suppressing messages
@@ -115,30 +113,29 @@ summary_Ozone <- epa_data %>%
 Below this paragraph, but above the horizonal line (`---`), create two separate code chunks that create boxplots of the distribution of Ozone levels by month using, one for only records collected in 2018 and one for records in 2019. Customize the chunk options such that the final figures are displayed but not the code used to generate the figures. In addition, align the plots on the left side of the page and set the figure heights so both plots fit on the same page with minimal space remaining. Lastly, add a `fig.cap` chunk option to add a caption (title) to your plot that will display underneath the figure.
 
 \newpage
----
 
-```{r, echo=FALSE, fig.height=3}
+```{r echo=FALSE, fig.height=3, warning=FALSE, fig.cap="Monthly Ozone levels in 2018"}
 ozone2018 <- epa_data[epa_data$Year==2018,]
 
 Plot1<- ggplot(ozone2018, aes(x = as.factor(Month)))+
   geom_boxplot(aes(y=Ozone))+
-  labs(caption = "Figure 1: Monthly Ozone levels in 2018", x = "Month",y = 'Concentrations "$\\mu g/m^3$"', title = "Monthly Ozone Concentrations (2018)")
+  labs(title = "Monthly Ozone Concentrations (2018)", x = "Month",y = 'Concentrations (ug/m^3)')
 
 Plot1
 ```
 
-```{r, echo=FALSE, fig.height=3}
+```{r echo=FALSE, fig.height=3, warning=FALSE, fig.cap="Monthly Ozone levels in 2019"}
 ozone2019 <- epa_data[epa_data$Year==2019,]
 
 Plot2<- ggplot(ozone2019, aes(x = as.factor(Month)))+
   geom_boxplot(aes(y=Ozone))+
-  labs(caption = "Figure 2: Monthly Ozone levels in 2019", x = "Month",y = 'Concentrations"$\\mu g/m^3$"', title = "Monthly Ozone Concentrations (2019)")
+  labs(title = "Monthly Ozone Concentrations (2019)",x = "Month",y = 'Concentrations(ug/m^3)')
 
 Plot2
 ```
 
 
----
+
 
 \newpage
 
