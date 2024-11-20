@@ -78,11 +78,8 @@ ownership <-  lwsp_durham %>%
   html_text(trim = TRUE)
 
 max_day_use <- lwsp_durham %>% 
-  html_elements(":nth-child(31) td:nth-child(9),
-                tr:nth-child(2) :nth-child(9), :nth-child(31) td:nth-child(6),
-                :nth-child(31) td:nth-child(3)") %>% 
+  html_elements("th~ td+ td") %>% 
   html_text(trim = TRUE)
-
 
 ```
 
@@ -113,7 +110,7 @@ lwsp.dataframe <- arrange(lwsp.dataframe, Date)
 ggplot(lwsp.dataframe, aes(x= Date, y= Max.Day.Use)) +
   geom_point()+
   geom_line()+
-labs(x = "Date",y = "Maximum Daily Witdrawals")
+labs(x = "Date",y = "Maximum Daily Withdrawals")
 
 
 ```
@@ -125,8 +122,8 @@ labs(x = "Date",y = "Maximum Daily Witdrawals")
 #6. 
 scrape.it <- function(ID, Yr){
   url <- 
-gsub(" ","",paste("https://www.ncwater.org/WUDC/app/LWSP/report.php?pwsid=",ID,"&year=",
-    Yr))
+gsub(" ","",paste("https://www.ncwater.org/WUDC/app/LWSP/report.php?pwsid=",
+                  ID,"&year=",Yr))
 read.my.url <- read_html(url)
 print(url)
 #scrapedata
@@ -143,9 +140,7 @@ owner <-  read.my.url %>%
   html_text(trim = TRUE)
 
 maxuseday <- read.my.url %>% 
-  html_elements(":nth-child(31) td:nth-child(9) , tr:nth-child(2) :nth-child(9),
-                :nth-child(31) td:nth-child(6),
-                :nth-child(31) td:nth-child(3)")%>% 
+  html_elements("th~ td+ td")%>% 
   html_text(trim = TRUE)
 
 
@@ -161,16 +156,20 @@ df <- data.frame("Water System Name" = system_name,
                              "Max Day Use" = as.numeric(maxuseday) ,
                              "Month" = months, 
                              "Date"= make_date(years, months.num))
-df <- arrange(df, Date)
+
+
+#plot daily use
+plot <- ggplot(df, aes(x= Date, y= Max.Day.Use)) +
+  geom_point()+
+  geom_line()+
+labs(x = "Date",y = "Maximum Daily Withdrawals")
+print(plot)
+
+#return dataframe
+df<- arrange(df, Date)
 
 print(df)
 return(df)
-
-#plot daily use
-ggplot(df, aes(x= Date, y= Max.Day.Use)) +
-  geom_point()+
-  geom_line()+
-labs(x = "Date",y = "Maximum Daily Witdrawals")
 }
 
 ```
@@ -186,72 +185,16 @@ durham15 <- scrape.it('03-32-010', '2015')
 8. Use the function above to extract data for Asheville (PWSID = 01-11-010) in 2015. Combine this data with the Durham data collected above and create a plot that compares Asheville's to Durham's water withdrawals.
 
 
-
-
-
-
 ```{r fetch.and.plot.Asheville.2015.data}
 #8 
 ash <- scrape.it('01-11-010', '2015')
 
-#My path is changed in the function for max use day. Which prevents me from
-#getting every months max use day value. 
-
-scrape.it.asheville <- function(ID, Yr){
-  url <- 
-gsub(" ","",paste("https://www.ncwater.org/WUDC/app/LWSP/report.php?pwsid=",ID,"&year=",
-    Yr))
-read.my.url <- read_html(url)
-print(url)
-#scrapedata
-system_name <- read.my.url %>% 
-  html_element("td tr:nth-child(1) td:nth-child(2)") %>% 
-  html_text(trim = TRUE)
-
-the.id <- read.my.url %>% 
-  html_element("td tr:nth-child(1) td:nth-child(5)") %>% 
-  html_text(trim = TRUE)
-
-owner <-  read.my.url %>% 
-  html_element("tr:nth-child(2) td:nth-child(4)") %>% 
-  html_text(trim = TRUE)
-
-maxuseday <- read.my.url %>% 
-  html_elements(":nth-child(30) td:nth-child(9) , :nth-child(30) td:nth-child(6), :nth-child(30) td:nth-child(3), tr:nth-child(2) :nth-child(6) tr:nth-child(2) :nth-child(3) tr:nth-child(2) td:nth-child(9)")%>% 
-  html_text(trim = TRUE)
-
-#creates dataframe
-months <- c("Jan" ,"May", "Sept", "Feb", "Jun", "Oct", "Mar", "Jul", "Nov",
-            "Apr", "Aug", "Dec")
-months.num <- c(01, 05, 09, 02, 06, 10, 03, 07, 11, 04, 08, 12)
-years <- rep(Yr, 12)
-df.ash <- data.frame("Water System Name" = system_name, 
-                             "PWSID" = the.id,
-                             "Ownership" = owner, 
-                             "Max Day Use" = as.numeric(maxuseday) ,
-                             "Month" = months, 
-                             "Date"= make_date(years, months.num))
-df.ash <- arrange(df.ash, Date)
-
-print(df.ash)
-return(df.ash)
-
-#plot daily use
-ggplot(df.ash, aes(x= Date, y= Max.Day.Use)) +
-  geom_point()+
-  geom_line()+
-labs(x = "Date",y = "Maximum Daily Witdrawals")
-}
-
-asheville15 <- scrape.it.asheville('01-11-010', '2015')
-durham15
-
-combined.data<- merge(asheville15, durham15, all.x = TRUE, all.y = TRUE)
+combined.data<- merge(ash, durham15, all.x = TRUE, all.y = TRUE)
 
 ggplot(combined.data, aes(x= Date, y= Max.Day.Use, color = Water.System.Name)) +
   geom_point()+
   geom_line()+
-labs(x = "Date",y = "Maximum Daily Witdrawals")
+labs(x = "Date",y = "Maximum Daily Withdrawals")
 ```
 
 
@@ -261,13 +204,7 @@ labs(x = "Date",y = "Maximum Daily Witdrawals")
 
 ```{r fetch.and.plot.Asheville.multiyear.data }
 #9 
-#this is not working
-the_years = seq(2018,2022)
-the_site = rep('01-11-010', length(the_years))
-ash.max.water <- map2(the_site, the_years, scrape.it.asheville) %>%
-  bind_rows()
 
-#this is working with the original function
 the_years = seq(2018,2022)
 the_site = rep('01-11-010', length(the_years))
 ash.max.water <- map2(the_site, the_years, scrape.it) %>%
@@ -282,5 +219,5 @@ scale_x_date(date_breaks = '1 year', date_labels = '%Y')
 ```
 
 Question: Just by looking at the plot (i.e. not running statistics), does Asheville have a trend in water usage over time?
-> Answer:
->
+> Answer: Yes asheville has a trend indicating increased water usage over time.
+> There is a dip between 2020 and 2022 during covid times. 
